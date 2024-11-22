@@ -17,12 +17,21 @@ pub fn app() -> Html {
     };
     log!(name);
     log!(serde_json::to_string(&myobject).unwrap());
-    let class = "title";
+    let class = "titles";
+    let message: Option<&str> = Some("I am a message");
     html! {
         <>
-            <h1 class={class}>{"Hello, world!!!!!"}</h1>
+            <h1 class={class}>{"Hello, world!!"}</h1>
             if class == "titles" {
                 <p>{"Hi there!!"}</p>
+            } else {
+                <p>{"class is not titles"}</p>
+            }
+
+            if let Some(message) = message {
+                <p>{message}</p>
+            } else {
+                <p>{"no message to see today"}</p>
             }
         </>
     }
