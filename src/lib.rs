@@ -3,7 +3,7 @@ use serde::Serialize;
 use yew::prelude::*;
 
 #[derive(Serialize)]
-struct myObject {
+struct MyObject {
     username: String,
     favorite_lang: String,
 }
@@ -11,7 +11,7 @@ struct myObject {
 #[function_component(App)]
 pub fn app() -> Html {
     let name = "kitty";
-    let myobject = myObject{
+    let myobject = MyObject{
         username: name.to_owned(),
         favorite_lang: "Rust".to_owned(),
     };
@@ -19,6 +19,8 @@ pub fn app() -> Html {
     log!(serde_json::to_string(&myobject).unwrap());
     let class = "titles";
     let message: Option<&str> = Some("I am a message");
+
+    let tasks = vec!["task 1", "task 2", "task 3"];
     html! {
         <>
             <h1 class={class}>{"Hello, world!!"}</h1>
@@ -33,6 +35,18 @@ pub fn app() -> Html {
             } else {
                 <p>{"no message to see today"}</p>
             }
+
+            <ul>
+                {list_to_html(tasks)}
+            </ul>
+        </>
+    }
+}
+
+fn list_to_html(list: Vec<&str>) -> Html {
+    html! {
+        <>
+            { for list.iter().map(|item| html!{<li>{*item}</li>}) }
         </>
     }
 }
